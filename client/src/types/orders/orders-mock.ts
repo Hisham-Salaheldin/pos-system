@@ -1,0 +1,69 @@
+export type Order = {
+    id: number
+    orderRef: string
+    session: string
+    date: string
+    receipt: string
+    customer: string
+    employee: string
+    total: number
+    status: "New" | "Paid"
+  }
+  
+  export const OrdersMock: Order[] = [
+    {
+      id: 1,
+      orderRef: "Restaurant - 000001",
+      session: "Restaurant/00001",
+      date: "Jul 14, 11:01 PM",
+      receipt: "261-1-000001",
+      customer: "Ahmed Ali",
+      employee: "developer test",
+      total: 16.2,
+      status: "Paid",
+    },
+    {
+      id: 2,
+      orderRef: "Restaurant - 000002",
+      session: "Restaurant/00001",
+      date: "Jul 14, 11:07 PM",
+      receipt: "261-1-000002",
+      customer: "Sara Mohamed",
+      employee: "developer test",
+      total: 33.61,
+      status: "New",
+    },
+    {
+      id: 3,
+      orderRef: "Restaurant - 000003",
+      session: "Restaurant/00002",
+      date: "Jul 15, 09:15 AM",
+      receipt: "261-1-000003",
+      customer: "Omar Hassan",
+      employee: "cashier one",
+      total: 54.90,
+      status: "Paid",
+    },
+    {
+      id: 4,
+      orderRef: "Restaurant - 000004",
+      session: "Restaurant/00002",
+      date: "Jul 15, 10:42 AM",
+      receipt: "261-1-000004",
+      customer: "Mona Ibrahim",
+      employee: "cashier two",
+      total: 21.50,
+      status: "New",
+    },
+    {
+      id: 5,
+      orderRef: "Restaurant - 000005",
+      session: "Restaurant/00003",
+      date: "Jul 15, 12:30 PM",
+      receipt: "261-1-000005",
+      customer: "Khaled Youssef",
+      employee: "developer test",
+      total: 78.25,
+      status: "Paid",
+    },
+  ]
