@@ -9,7 +9,44 @@ export type Order = {
     total: number
     status: "New" | "Paid"
   }
-  
+import { createTableStore } from "@/state/table-store"
+  import { type ColumnDef } from "@tanstack/react-table"
+// This type is used to define the shape of our data.
+// You can use a Zod schema here if you want.
+
+
+export const columns: ColumnDef<Order>[] = [
+  {
+    accessorKey: "orderRef",
+    header: "Reference",
+  },
+  {
+    accessorKey: "session",
+    header: "Session",
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
+  },
+  {
+    accessorKey: "reciept",
+    header: "Reciept",
+  },
+  {
+    accessorKey: "employee",
+    header: "Employee",
+  },
+  {
+    accessorKey: "total",
+    header: "Total",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+]
+
+
   export const OrdersMock: Order[] = [
     {
       id: 1,
@@ -67,3 +104,18 @@ export type Order = {
       status: "Paid",
     },
   ]
+
+  export const ordersTableStore = createTableStore({
+    initialState : {
+      query: { 
+        pageIndex: 0,
+        pageSize: 20,
+        sorting: [],
+        filters:[],
+        search: ""
+      },
+      rowSelection: {},
+      columnVisibility: {},
+    }
+    }
+  )

@@ -11,18 +11,35 @@ import {
   TableRow,
 } from "@/components/ui/table"
  
-import { useDataTable } from "@/state/useDataTable"
-import type UseDataTableProps from "@/types/orders/UseDataTableProp"
+import { useDataTable } from "@/hooks/useDataTable"
+import { useTableStore } from "@/hooks/useTableStore"
+// import type UseDataTableProps from "@/types/UseDataTableProp"
+import { type ColumnDef } from "@tanstack/react-table"
+import {ordersTableStore} from "@/types/orders/orders-mock"
 
+export default interface UseDataTableProps<TData, TValue> {
+    columns: ColumnDef<TData, TValue>[]
+    data: TData[]
+}
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: UseDataTableProps<TData, TValue>) {
   const table = useDataTable({ columns, data })
+  // const query = useTableStore(ordersTableStore,
+  //   (state) => state.query
+  // )
+  // const updateQuery = useTableStore(ordersTableStore,
+  //   (state) => state.updateQuery
+  // )
 
   return (
     <div className="overflow-hidden">
+      {/* <h1>
+        {query?.search}
+      </h1>
+      <button className="w-20 h-20 bg-green-500 hover:bg-green-200" onClick={() => updateQuery({search:"hello"})} >update</button> */}
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

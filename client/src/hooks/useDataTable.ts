@@ -4,7 +4,7 @@ import {
     type Table 
   } from "@tanstack/react-table"
   
-import type UseDataTableProps from "@/types/orders/UseDataTableProp"
+import type UseDataTableProps from "@/types/UseDataTableProp"
 
   export function useDataTable<TData, TValue>({
     data,
