@@ -15,9 +15,14 @@ export const createTableStore = ({ initialState }: TableStoreOptions) => {
                 query : {
                     ...state.query,
                     ...query,
-                
                 },
-            }))
+        })),
+
+        // update sorting state
+        updateSorting : (sorting) => set({sorting}),
+
+        // updateRowSelection state
+        updateRowSelection : (rowSelection) => set({rowSelection}),
         
     })
 

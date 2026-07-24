@@ -10,12 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
- 
+import {Checkbox} from "@/components/ui/checkbox"
 import { useDataTable } from "@/hooks/useDataTable"
 import { useTableStore } from "@/hooks/useTableStore"
+
 // import type UseDataTableProps from "@/types/UseDataTableProp"
 import { type ColumnDef } from "@tanstack/react-table"
-import {ordersTableStore} from "@/types/orders/orders-mock"
 
 export default interface UseDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -27,19 +27,15 @@ export function DataTable<TData, TValue>({
   data,
 }: UseDataTableProps<TData, TValue>) {
   const table = useDataTable({ columns, data })
-  // const query = useTableStore(ordersTableStore,
-  //   (state) => state.query
-  // )
-  // const updateQuery = useTableStore(ordersTableStore,
-  //   (state) => state.updateQuery
-  // )
+  const query = useTableStore((state) => state.query)
+  const updateQuery = useTableStore((state) => state.updateQuery)
 
   return (
     <div className="overflow-hidden">
-      {/* <h1>
+      <h1>
         {query?.search}
       </h1>
-      <button className="w-20 h-20 bg-green-500 hover:bg-green-200" onClick={() => updateQuery({search:"hello"})} >update</button> */}
+      <button className="w-20 h-20 bg-green-500 hover:bg-green-200" onClick={() => updateQuery({search:"hello"})} >update</button>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -66,6 +62,11 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
+                  <Checkbox
+                  checked={row.getIsSelected()}
+                  disabled={!row.getCanSelect()}
+                  onCheckedChange={(value) => row.toggleSelected(value)}
+                  />
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

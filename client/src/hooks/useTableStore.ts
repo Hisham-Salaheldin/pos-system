@@ -7,8 +7,8 @@ export const useTableStore = <T>(
     selector: (state: TableStore) => T
 ) => {
     const store = useContext(TableContext)
-
     if(!store) throw new Error("Table provider not found")
+
 
     return useStore(store, selector)
 }
