@@ -40,4 +40,5 @@ export interface TableStore extends TableState {
     updateQuery: (query: Partial<TableQuery>) => void
     updateSorting: (sorting: SortingState) => void
     updateRowSelection: (rowSelection: RowSelectionState) => void
+    updateColumnVisibilty: (columnVisibility: VisibilityState) => void
 }

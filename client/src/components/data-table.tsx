@@ -10,6 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 import {Checkbox} from "@/components/ui/checkbox"
 import { useDataTable } from "@/hooks/useDataTable"
 import { useTableStore } from "@/hooks/useTableStore"
@@ -36,6 +44,27 @@ export function DataTable<TData, TValue>({
         {query?.search}
       </h1>
       <button className="w-20 h-20 bg-green-500 hover:bg-green-200" onClick={() => updateQuery({search:"hello"})} >update</button>
+      <div>
+        <DropdownMenu >
+          <DropdownMenuTrigger render={<Button variant="outline" />} className={"w-full justify-end border-none hover:bg-transparent focus:bg-transparen active:bg-transparent data-[pressed]:bg-transparent data-[popup-open]:bg-transparent"}>
+            Column Visibilty
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              {table.getAllColumns().map((column) => (
+                  <div className="flex gap-4">
+                      <Checkbox
+                        checked={column.getIsVisible()}
+                        disabled={!column.getCanHide()}
+                        onCheckedChange={(value) => column.toggleVisibility(value)}
+                      />
+                      <p>{column.id}</p>
+                  </div>
+              ))}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>  
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -62,11 +91,6 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
-                  <Checkbox
-                  checked={row.getIsSelected()}
-                  disabled={!row.getCanSelect()}
-                  onCheckedChange={(value) => row.toggleSelected(value)}
-                  />
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

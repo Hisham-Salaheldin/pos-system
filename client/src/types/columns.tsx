@@ -13,13 +13,13 @@ export const OrderColumns: ColumnDef<Order>[] = [
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(value)} //or getToggleAllPageRowsSelectedHandler
       />
     ),
-    // cell: ({ row }) => (
-    //   <Checkbox
-    //     checked={row.getIsSelected()}
-    //     disabled={!row.getCanSelect()}
-    //     onCheckedChange={row.getToggleSelectedHandler()}
-    //   />
-    // ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        disabled={!row.getCanSelect()}
+        onCheckedChange={row.getToggleSelectedHandler()}
+      />
+    ),
   },
     {
       accessorKey: "orderRef",

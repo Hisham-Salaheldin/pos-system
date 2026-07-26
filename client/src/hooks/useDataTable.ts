@@ -6,6 +6,7 @@ import {
   } from "@tanstack/react-table"
 import {useTableStore} from "./useTableStore"
 import type UseDataTableProps from "@/types/UseDataTableProp"
+import {resolveUpdater} from "@/utiles/resolveUpdater"
 
 export function useDataTable<TData, TValue>({
     data,
@@ -28,6 +29,10 @@ export function useDataTable<TData, TValue>({
   const rowSelection =  useTableStore((state) => state.rowSelection)
   const updateRowSelection = useTableStore((state) => state.updateRowSelection)
 
+  // column visibilty
+  const columnVisibility = useTableStore((state) => state.columnVisibility)
+  const updateColumnVisibilty = useTableStore((state) => state.updateColumnVisibilty)
+
   const table = useReactTable({
     data,
     columns,
@@ -35,20 +40,25 @@ export function useDataTable<TData, TValue>({
       pagination,
       sorting,
       rowSelection,
+      columnVisibility,
     },
     manualPagination: true,
 
     onPaginationChange: (updater) => {
-      const newPagination = typeof updater === "function" ? updater(pagination) : updater
+      const newPagination = resolveUpdater(updater,pagination)
       updateQuery(newPagination)
     }, 
     onSortingChange : (updater) => {
-      const newSorting = typeof updater === "function" ? updater(sorting) : updater
+      const newSorting = resolveUpdater(updater,sorting)
       updateSorting(newSorting)
     },
     onRowSelectionChange : (updater) => {
-      const newRowSelection = typeof updater === "function" ? updater(rowSelection) : updater
+      const newRowSelection = resolveUpdater(updater,rowSelection)
       updateRowSelection(newRowSelection)
+    },
+    onColumnVisibilityChange : (updater) => {
+      const newColumnVisibilty = resolveUpdater(updater,columnVisibility)
+      updateColumnVisibilty(newColumnVisibilty)
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),

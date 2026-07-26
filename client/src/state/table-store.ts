@@ -23,6 +23,9 @@ export const createTableStore = ({ initialState }: TableStoreOptions) => {
 
         // updateRowSelection state
         updateRowSelection : (rowSelection) => set({rowSelection}),
+
+        // column visibilty
+        updateColumnVisibilty: (columnVisibility) => set({columnVisibility})
         
     })
 
